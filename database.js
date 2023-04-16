@@ -3,7 +3,7 @@ const books = [
     ISBN: "12345Book",
     title: "Tesla!!!",
     pubDate: "2021-08-05",
-    language: "en",
+    language: "english",
     numPage: 250,
     author: [1,2],
     publications: [1],
@@ -11,13 +11,13 @@ const books = [
   },
   {
     ISBN: "12345Book2",
-    title: "Tesla!!!",
-    pubDate: "2021-08-05",
-    language: "en",
-    numPage: 250,
-    author: [1,2],
-    publications: [1],
-    category: ["tech","space","education"]
+    title: "zombi!!!",
+    pubDate: "2023-08-05",
+    language: "hindi",
+    numPage: 500,
+    author: [3,2],
+    publications: [2],
+    category: ["tech2","space2","education2"]
   }
 ]
 
@@ -30,7 +30,12 @@ const author = [
   {
     id: 2,
     name: "Elon Musk",
-    books: ["12345Book"]
+    books: ["12345Book2"]
+  },
+  {
+    id: 3,
+    name: "narandra modi",
+    books: ["12222Book"]
   }
 ]
 
