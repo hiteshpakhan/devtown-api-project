@@ -1,10 +1,15 @@
 const express = require('express');
+var bodyParser = require("body-parser"); 
 
 // database
 const database = require("./database");
 
 // initialling express 
 const booky = express();
+
+// initializing bodyparser
+booky.use(bodyParser.urlencoded({extended: true}));
+booky.use(bodyParser.json());
 
 /*
 to get all the book
@@ -101,6 +106,14 @@ to get all the publications
 */
 booky.get("/publications", (req,res)=>{
     return res.json({publications: database.publication});
+});
+
+
+// post method:-
+booky.post("/book/new", (req, res) => {
+    const newBook = req.body;
+    database.books.push(newBook);
+    return res.json({updatedBooks: database.books});
 });
 
 
