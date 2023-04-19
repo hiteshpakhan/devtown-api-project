@@ -109,11 +109,59 @@ booky.get("/publications", (req,res)=>{
 });
 
 
-// post method:-
+// # post method:-
+// add new book
 booky.post("/book/new", (req, res) => {
     const newBook = req.body;
     database.books.push(newBook);
     return res.json({updatedBooks: database.books});
+});
+
+
+// add new author
+booky.post("/author/new", (req, res) => {
+    const newAuthor = req.body;
+    database.author.push(newAuthor);
+    return res.json({newAuthor: database.author});
+});
+
+
+// # put method
+booky.put("/publication/update/book/:isbn", (req, res)=>{
+    
+    // update the publication 
+    database.publication.forEach((pub)=> {
+        if(pub.id == req.body.pubId){
+            return pub.books.push(req.params.isbn);
+        }
+    });
+
+    // update the books
+    database.books.forEach((book)=>{
+        if(book.ISBN == req.params.isbn){
+            book.publications = req.body.pubId;
+            return;
+        }
+    }); 
+
+    return res.json({
+        updateBooks: database.books,
+        updatePublication: database.publication,
+        message: "successfully update publication"
+    });
+});
+
+
+/* Delete */ 
+// to delete a book
+booky.delete("/book/delete/:isbn", (req, res)=>{
+    const updatedBookDatabase = database.books.filter(
+        (book) => book.ISBN !== req.params.isbn
+    )
+
+    database.books = updatedBookDatabase;
+    
+    return res.json({books: database.books});
 });
 
 
