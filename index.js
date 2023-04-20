@@ -165,6 +165,32 @@ booky.delete("/book/delete/:isbn", (req, res)=>{
 });
 
 
+// to delete the author from book and related book from author
+booky.delete("/book/delete/author/:isbn/:authorId", (req,res)=>{
+
+    //update the book database
+    database.books.forEach((book) => {
+        if(book.ISBN === req.params.isbn){
+            const newAuthorList = book.author.filter((eachAuthor) => eachAuthor !== parseInt(req.params.authorId));
+            book.author = newAuthorList;
+            return;
+        }
+    });
+
+    //update the author database
+    database.author.forEach((eachAuthor) => {
+        if(eachAuthor.id === parseInt(req.params.authorId)){
+            const newBookList = eachAuthor.books.filter(
+                (book) => book !== req.params.isbn
+            );
+            eachAuthor.books = newBookList;
+            return;
+        }
+    });
+    
+});
+
+
 booky.listen(3000,() => {
     console.log("Server is up and running");
 });
